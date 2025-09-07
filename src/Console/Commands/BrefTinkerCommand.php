@@ -74,10 +74,8 @@ class BrefTinkerCommand extends TinkerCommand
 
     /**
      * Get the console command options.
-     *
-     * @return array
      */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['execute', null, InputOption::VALUE_OPTIONAL, 'Execute the given code using Tinker'],

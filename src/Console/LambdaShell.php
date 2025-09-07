@@ -7,7 +7,7 @@ use Psy\Shell;
 
 class LambdaShell extends Shell
 {
-    protected $contextRestored = false;
+    protected bool $contextRestored = false;
 
     public function setScopeVariables(array $vars)
     {
@@ -20,22 +20,14 @@ class LambdaShell extends Shell
         }
     }
 
-    /**
-     * @param  $context
-     * @return void
-     */
-    public function writeContextData($vars)
+    public function writeContextData(array $vars): void
     {
         $context = base64_encode(serialize($vars));
 
         $this->writeStdout("[CONTEXT]{$context}[END_CONTEXT]");
     }
 
-    /**
-     * @param  $context
-     * @return void
-     */
-    public function writeReturnValueData($ret)
+    public function writeReturnValueData($ret): void
     {
         if ($ret instanceof NoReturnValue) {
             return;
@@ -45,22 +37,18 @@ class LambdaShell extends Shell
         $indent = \str_repeat(' ', \strlen($prompt));
         $formatted = $this->presentValue($ret);
         $formattedRetValue = \sprintf('<whisper>%s</whisper>', $prompt);
-        $formatted = $formattedRetValue.\str_replace(\PHP_EOL, \PHP_EOL.$indent, $formatted);
+        $formatted = $formattedRetValue . str_replace(\PHP_EOL, \PHP_EOL.$indent, $formatted);
         $this->writeStdout("[RETURN]{$formatted}[END_RETURN]");
     }
 
-    public function restoreContextData($context)
+    public function restoreContextData(string $context): void
     {
         if ($returnVars = unserialize(base64_decode($context))) {
             $this->setScopeVariables($returnVars);
         }
     }
 
-    /**
-     * @param $contextRestored
-     * @return $this
-     */
-    public function setContextRestored($contextRestored)
+    public function setContextRestored($contextRestored): self
     {
         $this->contextRestored = $contextRestored;
 

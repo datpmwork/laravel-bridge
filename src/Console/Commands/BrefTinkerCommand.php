@@ -14,6 +14,8 @@ class BrefTinkerCommand extends TinkerCommand
 {
     protected $name = 'bref:tinker';
 
+    protected $hidden = true;
+
     public function handle()
     {
         $this->getApplication()->setCatchExceptions(false);

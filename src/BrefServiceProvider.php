@@ -85,7 +85,7 @@ class BrefServiceProvider extends ServiceProvider
             );
         }
 
-        if (env('AWS_LAMBDA_RUNTIME_API')) {
+        if (isset($_SERVER['AWS_LAMBDA_RUNTIME_API'])) {
             $this->commands([
                 BrefTinkerCommand::class,
             ]);

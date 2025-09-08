@@ -14,6 +14,8 @@ class BrefTinkerCommand extends TinkerCommand
 {
     protected $name = 'bref:tinker';
 
+    protected $description = 'This is an internal used by the bref tinker command. Do not call it directly.';
+
     protected $hidden = true;
 
     public function handle()
